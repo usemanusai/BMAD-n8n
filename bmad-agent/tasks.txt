@@ -34,6 +34,7 @@ Use this documentation to inform all node selections, architectural decisions, a
 **Confirm Operating Mode:**
 - Verify current safeguard mode (default: /SAFE-GUARD-ON)
 - Verify diagram mode (default: /DIAGRAMS-ON)
+- **CRITICAL**: When /DIAGRAMS-ON is active, MUST use simple ASCII text-based diagrams with boxes and arrows (|Node| -> |Node|). NEVER use Mermaid diagrams or complex graph syntax for Google Gems compatibility.
 - Explain the step-by-step process with screenshot confirmations
 
 **Gather Requirements:**
