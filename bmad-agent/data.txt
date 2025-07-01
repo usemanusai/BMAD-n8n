@@ -16,6 +16,7 @@
   - [AGENT ROLES & RESPONSIBILITIES](#agent-roles--responsibilities)
   - [POST MVP FEATURES](#post-mvp-features)
   - [n8n NODE AND TRIGGER REFERENCE](#n8n-node-and-trigger-reference)
+  - [n8n COMPREHENSIVE DOCUMENTATION](#n8n-comprehensive-documentation)
   - [n8n BMAD METHOD PRINCIPLES](#n8n-bmad-method-principles)
 
 ## PROJECT OVERVIEW
@@ -362,6 +363,54 @@ Zammad, Zendesk, Zoho CRM, Zoom, Zulip
 - MCP Server Trigger: Expose n8n tools as MCP Server endpoint
 - n8n: Handle events and perform actions on n8n instance
 - SSE Trigger: Triggers on Server-Sent Events
+
+## n8n COMPREHENSIVE DOCUMENTATION
+
+### AUTHORITATIVE TECHNICAL GUIDE TO n8n WORKFLOW AUTOMATION PLATFORM
+
+**An Authoritative Technical Guide to the n8n Workflow Automation Platform (As of 1 July 2025)**
+
+## **Part I: The n8n Architecture and Core Concepts**
+
+This part establishes the foundational knowledge required to understand the n8n platform. It moves from the high-level philosophy and architecture to the specifics of the user interface and core components, providing the necessary context for the advanced topics, node references, and development practices covered in subsequent sections.
+
+### **Section 1: Foundational Principles of n8n**
+
+This section introduces n8n not merely as a tool, but as a platform with a distinct philosophy and architecture. It defines the core terminology and components that are used throughout this report, setting the stage for a comprehensive understanding of its capabilities.
+
+#### **1.1 The n8n Paradigm: Node-Based, Fair-Code Automation**
+
+At its core, n8n is an extendable workflow automation platform designed with a node-based architecture. This paradigm is fundamental to its versatility, enabling users to visually construct complex processes by connecting functional blocks, or "nodes," on a digital canvas. Each node represents a specific action, such as a trigger, a data transformation, or an API call to an external service. This approach allows for the connection of virtually any system with an API to any other, embodying the platform's principle of "connecting anything to everything".
+
+A defining characteristic of n8n is its "fair-code" distribution model. This is a strategic choice that significantly influences its market position and developer ecosystem. Unlike purely open-source projects, which can face challenges in sustainable funding, or fully proprietary platforms, which lack transparency, the fair-code model offers a hybrid approach. The source code is perpetually visible, and the core product is available for self-hosting, which fosters trust and encourages adoption within technical and security-conscious communities. This transparency allows organizations to audit the code and deploy it in highly secure, on-premises environments.
+
+This model creates a powerful growth dynamic. The free, source-visible, and self-hostable community edition attracts a large and active user base of developers, automation specialists, and hobbyists. This community, in turn, enriches the entire ecosystem by creating a wealth of tutorials, forum discussions, and community-developed nodes, which lowers the barrier to entry for new users and expands the platform's capabilities organically. As the automation needs of these users mature and scale, they are naturally guided toward n8n's commercial offerings—the managed n8n Cloud or the feature-rich Enterprise plan—which are built upon the same trusted core. This developer-centric growth strategy contrasts with the marketing-led approaches of many competitors, grounding the platform's value in its technical capabilities and community support.
+
+#### **1.2 The n8n Ecosystem: Cloud, Self-Hosted, and Community**
+
+The n8n platform can be utilized through several distinct deployment models, each catering to different organizational needs regarding control, convenience, and scalability. The choice between these models is a foundational architectural decision that impacts available features, security posture, and operational overhead.
+
+**n8n Cloud:** This is the official managed, hosted Software-as-a-Service (SaaS) offering from n8n. Its primary advantages are convenience and reduced operational burden. Key benefits include zero technical setup or maintenance, continuous uptime monitoring, managed OAuth for simplified authentication with third-party services, and seamless one-click upgrades to the latest n8n versions. This option is ideal for teams that wish to focus on building automations without managing the underlying infrastructure. It is important to note that, as of this report, n8n Cloud is unavailable in Russia and Belarus.
+
+**Self-Hosting:** This model provides maximum control, data privacy, and access to the full spectrum of n8n features. It is the recommended path for organizations with stringent security requirements or those needing advanced customization. Self-hosting unlocks capabilities not available on the Cloud platform, such as the Execute Command node for running shell scripts on the host machine and the ability to install any community-developed node from the npm registry without restriction. Deployment is most commonly achieved via Docker, which is the officially recommended method, but can also be done using npm or other server setups. This model grants full control over environment variables, enabling fine-grained tuning of performance, security, and data handling policies.
+
+**Community and Learning Resources:** The n8n ecosystem extends beyond the software itself and is deeply integrated with its community and educational materials. The community forum serves as a primary hub for users to ask questions, share solutions, and request features. The project's GitHub repository is the center for bug reporting, contributions, and accessing the source code. Furthermore, n8n provides a comprehensive set of official learning resources, including official documentation, quickstart guides, and structured text and video courses for various skill levels.
+
+The decision between Cloud and Self-Hosted is a critical fork in the road. The self-hosted path is tailored for maximum power, customization, and security control, aligning with the platform's messaging towards "technical teams" and enterprise clients. The Cloud path, conversely, prioritizes ease of use and speed of deployment, catering to a broader audience but with inherent limitations on system-level access and extensibility. This bifurcation must be a primary consideration in any architectural planning for n8n adoption.
+
+#### **1.3 Core Architectural Components: A Definitive Overview**
+
+Regardless of the deployment model, all automation on the n8n platform is constructed from a set of fundamental components. A clear understanding of these building blocks is essential for designing, building, and troubleshooting any workflow.
+
+**Workflows:** A workflow is the central concept in n8n. It is a collection of nodes connected in a specific sequence on the editor canvas to automate a process. Workflows can be created from scratch, built from pre-existing templates, and shared between users.
+
+**Nodes:** Nodes are the individual functional units within a workflow. They perform a discrete action, such as starting the workflow (Trigger nodes), fetching or sending data to an external service (Application nodes), or processing and manipulating data (Core nodes). n8n provides a vast library of built-in nodes and allows for the creation of custom nodes to extend its functionality.
+
+**Connections:** These are the visual links between nodes on the canvas. They dictate the flow of execution and the path that data takes as it moves from one node to the next. A connection ensures that the output of one node becomes the input for the subsequent node.
+
+**Executions:** An execution is a single, complete run of a workflow. Executions can be triggered in two primary ways: manually, by a user clicking a button in the editor for testing and development purposes, or automatically in a production environment when a trigger node's conditions are met. The history and logs of these executions are critical for debugging and monitoring.
+
+**Credentials:** Credentials are the securely stored authentication details—such as API keys, usernames and passwords, or OAuth2 tokens—that nodes use to connect to external applications and services. n8n provides a centralized and encrypted credential management system, ensuring that sensitive information is not hard-coded into workflows and can be reused across multiple nodes and workflows.
 
 ## n8n BMAD METHOD PRINCIPLES
 
