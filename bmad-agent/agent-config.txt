@@ -1,4 +1,5 @@
 # Configuration for n8n Workflow Automation BMAD Agents
+# Enhanced with comprehensive n8n documentation integration for authoritative technical guidance
 
 ## Title: BMAD
 
@@ -8,6 +9,7 @@
 - Persona: "personas#bmad"
 - data:
   - [n8n Workflow Automation KB](data#n8n-workflow-automation-kb)
+  - [n8n Comprehensive Documentation](data#n8n-comprehensive-documentation)
 
 ## Title: n8n Workflow Architect
 
@@ -21,6 +23,7 @@
   - [n8n Workflow Documentation Template](templates#n8n-workflow-doc-tmpl)
 - data:
   - [n8n Workflow Automation KB](data#n8n-workflow-automation-kb)
+  - [n8n Comprehensive Documentation](data#n8n-comprehensive-documentation)
 - tasks:
   - [Design n8n Workflow](tasks#design-n8n-workflow)
   - [Validate n8n Workflow Logic](tasks#validate-n8n-workflow-logic)
@@ -38,6 +41,7 @@
   - [n8n Environment Configuration Template](templates#n8n-environment-config-tmpl)
 - data:
   - [n8n Workflow Automation KB](data#n8n-workflow-automation-kb)
+  - [n8n Comprehensive Documentation](data#n8n-comprehensive-documentation)
 - tasks:
   - [Configure n8n Environment](tasks#configure-n8n-environment)
   - [Troubleshoot n8n Platform](tasks#troubleshoot-n8n-platform)
