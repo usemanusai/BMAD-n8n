@@ -16,6 +16,7 @@
   - [AGENT ROLES & RESPONSIBILITIES](#agent-roles--responsibilities)
   - [POST MVP FEATURES](#post-mvp-features)
   - [n8n NODE AND TRIGGER REFERENCE](#n8n-node-and-trigger-reference)
+  - [n8n COMPREHENSIVE DOCUMENTATION](#n8n-comprehensive-documentation)
   - [n8n BMAD METHOD PRINCIPLES](#n8n-bmad-method-principles)
 
 ## PROJECT OVERVIEW
@@ -362,6 +363,368 @@ Zammad, Zendesk, Zoho CRM, Zoom, Zulip
 - MCP Server Trigger: Expose n8n tools as MCP Server endpoint
 - n8n: Handle events and perform actions on n8n instance
 - SSE Trigger: Triggers on Server-Sent Events
+
+## n8n COMPREHENSIVE DOCUMENTATION
+
+### AUTHORITATIVE TECHNICAL GUIDE TO n8n WORKFLOW AUTOMATION PLATFORM
+
+**An Authoritative Technical Guide to the n8n Workflow Automation Platform (As of 1 July 2025)**
+
+## **Part I: The n8n Architecture and Core Concepts**
+
+This part establishes the foundational knowledge required to understand the n8n platform. It moves from the high-level philosophy and architecture to the specifics of the user interface and core components, providing the necessary context for the advanced topics, node references, and development practices covered in subsequent sections.
+
+### **Section 1: Foundational Principles of n8n**
+
+This section introduces n8n not merely as a tool, but as a platform with a distinct philosophy and architecture. It defines the core terminology and components that are used throughout this report, setting the stage for a comprehensive understanding of its capabilities.
+
+#### **1.1 The n8n Paradigm: Node-Based, Fair-Code Automation**
+
+At its core, n8n is an extendable workflow automation platform designed with a node-based architecture. This paradigm is fundamental to its versatility, enabling users to visually construct complex processes by connecting functional blocks, or "nodes," on a digital canvas. Each node represents a specific action, such as a trigger, a data transformation, or an API call to an external service. This approach allows for the connection of virtually any system with an API to any other, embodying the platform's principle of "connecting anything to everything".
+
+A defining characteristic of n8n is its "fair-code" distribution model. This is a strategic choice that significantly influences its market position and developer ecosystem. Unlike purely open-source projects, which can face challenges in sustainable funding, or fully proprietary platforms, which lack transparency, the fair-code model offers a hybrid approach. The source code is perpetually visible, and the core product is available for self-hosting, which fosters trust and encourages adoption within technical and security-conscious communities. This transparency allows organizations to audit the code and deploy it in highly secure, on-premises environments.
+
+This model creates a powerful growth dynamic. The free, source-visible, and self-hostable community edition attracts a large and active user base of developers, automation specialists, and hobbyists. This community, in turn, enriches the entire ecosystem by creating a wealth of tutorials, forum discussions, and community-developed nodes, which lowers the barrier to entry for new users and expands the platform's capabilities organically. As the automation needs of these users mature and scale, they are naturally guided toward n8n's commercial offerings—the managed n8n Cloud or the feature-rich Enterprise plan—which are built upon the same trusted core. This developer-centric growth strategy contrasts with the marketing-led approaches of many competitors, grounding the platform's value in its technical capabilities and community support.
+
+#### **1.2 The n8n Ecosystem: Cloud, Self-Hosted, and Community**
+
+The n8n platform can be utilized through several distinct deployment models, each catering to different organizational needs regarding control, convenience, and scalability. The choice between these models is a foundational architectural decision that impacts available features, security posture, and operational overhead.
+
+**n8n Cloud:** This is the official managed, hosted Software-as-a-Service (SaaS) offering from n8n. Its primary advantages are convenience and reduced operational burden. Key benefits include zero technical setup or maintenance, continuous uptime monitoring, managed OAuth for simplified authentication with third-party services, and seamless one-click upgrades to the latest n8n versions. This option is ideal for teams that wish to focus on building automations without managing the underlying infrastructure. It is important to note that, as of this report, n8n Cloud is unavailable in Russia and Belarus.
+
+**Self-Hosting:** This model provides maximum control, data privacy, and access to the full spectrum of n8n features. It is the recommended path for organizations with stringent security requirements or those needing advanced customization. Self-hosting unlocks capabilities not available on the Cloud platform, such as the Execute Command node for running shell scripts on the host machine and the ability to install any community-developed node from the npm registry without restriction. Deployment is most commonly achieved via Docker, which is the officially recommended method, but can also be done using npm or other server setups. This model grants full control over environment variables, enabling fine-grained tuning of performance, security, and data handling policies.
+
+**Community and Learning Resources:** The n8n ecosystem extends beyond the software itself and is deeply integrated with its community and educational materials. The community forum serves as a primary hub for users to ask questions, share solutions, and request features. The project's GitHub repository is the center for bug reporting, contributions, and accessing the source code. Furthermore, n8n provides a comprehensive set of official learning resources, including official documentation, quickstart guides, and structured text and video courses for various skill levels.
+
+The decision between Cloud and Self-Hosted is a critical fork in the road. The self-hosted path is tailored for maximum power, customization, and security control, aligning with the platform's messaging towards "technical teams" and enterprise clients. The Cloud path, conversely, prioritizes ease of use and speed of deployment, catering to a broader audience but with inherent limitations on system-level access and extensibility. This bifurcation must be a primary consideration in any architectural planning for n8n adoption.
+
+#### **1.3 Core Architectural Components: A Definitive Overview**
+
+Regardless of the deployment model, all automation on the n8n platform is constructed from a set of fundamental components. A clear understanding of these building blocks is essential for designing, building, and troubleshooting any workflow.
+
+**Workflows:** A workflow is the central concept in n8n. It is a collection of nodes connected in a specific sequence on the editor canvas to automate a process. Workflows can be created from scratch, built from pre-existing templates, and shared between users.
+
+**Nodes:** Nodes are the individual functional units within a workflow. They perform a discrete action, such as starting the workflow (Trigger nodes), fetching or sending data to an external service (Application nodes), or processing and manipulating data (Core nodes). n8n provides a vast library of built-in nodes and allows for the creation of custom nodes to extend its functionality.
+
+**Connections:** These are the visual links between nodes on the canvas. They dictate the flow of execution and the path that data takes as it moves from one node to the next. A connection ensures that the output of one node becomes the input for the subsequent node.
+
+**Executions:** An execution is a single, complete run of a workflow. Executions can be triggered in two primary ways: manually, by a user clicking a button in the editor for testing and development purposes, or automatically in a production environment when a trigger node's conditions are met. The history and logs of these executions are critical for debugging and monitoring.
+
+**Credentials:** Credentials are the securely stored authentication details—such as API keys, usernames and passwords, or OAuth2 tokens—that nodes use to connect to external applications and services. n8n provides a centralized and encrypted credential management system, ensuring that sensitive information is not hard-coded into workflows and can be reused across multiple nodes and workflows.
+
+### **Section 2: The n8n Editor: A Deep Dive into the User Interface**
+
+The n8n Editor is the primary integrated development environment (IDE) for creating, managing, and debugging workflows. This section serves as a detailed reference for the editor's components, explaining not just the function of each UI element but also how to leverage them for efficient and effective workflow construction.
+
+#### **2.1 Navigating the Canvas and Panels**
+
+The Editor UI is logically divided into several key areas, each serving a specific purpose in the workflow development process. The design promotes a "flow-based programming" mental model, where the visual layout on the canvas directly corresponds to the execution logic, making complex processes more transparent and manageable than equivalent linear scripts.
+
+**The Canvas:** This is the main workspace where workflows are built. Users add nodes to the canvas and connect them to define the automation logic. The visual arrangement of nodes and connections provides an immediate, high-level overview of the process flow. Recent enhancements, such as a minimap, have further improved navigation within large and complex workflows.
+
+**Left-Side Panel:** This panel serves as the main navigation and management hub. It provides access to the list of all workflows, credentials management, the global executions list, and instance-level settings.
+
+**Top Bar:** Located above the canvas, the top bar contains controls and information specific to the currently open workflow. This includes the workflow's name, the Active/Inactive toggle, the Test Workflow button for manual executions, and the Options menu for accessing workflow-specific settings and history.
+
+**Nodes Panel:** This panel is the library of all available nodes. It can be opened by clicking the + icon on the canvas or on a node connector. Users can search for specific nodes by name or browse through categories to find the required functionality. This is the primary interface for discovering and adding both built-in and community nodes to a workflow.
+
+**Node Details Panel:** When a node on the canvas is selected, its configuration options appear in a panel on the right. This is where users set the node's parameters, configure its behavior, manage credentials, and view its input and output data from test executions. Recent UI improvements, such as the introduction of an extended logs view at the bottom of the canvas and breadcrumb navigation for folder structures, demonstrate a continued focus on enhancing the user experience for developers building increasingly sophisticated automations.
+
+#### **2.2 Workflow Configuration and Settings**
+
+Beyond the individual node parameters, each workflow has a set of global settings that govern its overall behavior, reliability, and interaction with the n8n instance. These are accessed via the Options > Settings menu in the top bar. Understanding and correctly configuring these settings is a key differentiator between building simple scripts and engineering production-ready automations. The availability of these settings signals n8n's maturation into a platform capable of supporting robust, mission-critical processes. They provide the necessary controls for an architect to manage a workflow's reliability, performance, and operational cost.
+
+**Execution Order:** This setting defines how n8n processes workflows with multiple branches.
+- v0 (legacy): Executes branches in a layer-by-layer fashion (first node of each branch, then second node of each branch, etc.). This can lead to less predictable behavior in complex flows.
+- v1 (recommended): Executes each branch to completion before starting the next, in a deterministic order based on position (top-to-bottom, then left-to-right). This is the modern, recommended approach for predictable logic flow.
+
+The existence of these two options illustrates a conscious architectural evolution to improve the handling of complex branching logic.
+
+**Error Workflow:** Allows the designation of a separate, dedicated workflow to run if the current one fails. This is a cornerstone of robust error handling, enabling centralized logging and notifications.
+
+**Timezone:** Sets a specific timezone for the workflow, which is critical for time-sensitive operations like the Schedule Trigger. The default is America/New York (EDT).
+
+**Execution Data Management:** A suite of toggles provides granular control over what execution data is stored, which has significant implications for debugging, performance, and cost.
+- Save failed production executions: Controls if data from failed runs of an active workflow is persisted.
+- Save successful production executions: Controls if data from successful runs is persisted. Disabling this for high-volume workflows can drastically reduce database load and storage costs.
+- Save manual executions: Controls if data from test runs in the editor is saved.
+- Save execution progress: When enabled, n8n saves data after each node, allowing a failed workflow to be resumed. This enhances reliability at the cost of increased latency.
+
+**Timeout Workflow:** Enables a maximum execution time for the workflow. If the duration is exceeded, the execution is canceled. This is a critical safeguard against runaway processes or infinite loops.
+
+#### **2.3 Execution Analysis and Debugging Tools**
+
+n8n provides a suite of tools designed to help developers test, analyze, and troubleshoot their workflows throughout the development lifecycle.
+
+**Executions List:** This is the primary view for monitoring workflow runs. It can be accessed at a global level (showing all executions for all workflows) or at the workflow level (showing runs for only the current workflow). The list displays the status (success, failed), start time, duration, and execution mode (manual, production) for each run.
+
+**Execution View:** Clicking on a specific execution from the list opens a detailed view. This view shows the exact path the execution took through the workflow, highlighting it on the canvas. Users can select any node in the path to inspect the precise input and output data it handled during that run. For failed executions, this view will indicate which node failed and provide the associated error message, which is invaluable for debugging.
+
+**Pinning Data:** During manual testing in the editor, the output data of any node can be "pinned." This keeps the data visible in the node's output tab even when other nodes are executed, making it easier to reference data from an earlier step while configuring a later one.
+
+**Extended Logs View:** A recent UI enhancement provides a unified, always-accessible panel at the bottom of the canvas that shows a step-by-step log of the most recent test execution. It displays each node's input, output, and status, offering a more streamlined debugging experience without needing to open the full Executions list.
+
+#### **2.4 Source Control and Environments (Git Integration)**
+
+The integration of Git-based source control is an enterprise-grade feature that represents the cornerstone of n8n's strategy for large-scale, team-based automation development. It enables organizations to apply modern DevOps and Infrastructure-as-Code (IaC) principles to their automation workflows. This feature is available on Enterprise plans, with push capabilities also extended to Project Admins.
+
+This functionality fundamentally elevates workflow development from an ad-hoc, UI-driven activity into a structured, auditable, and scalable engineering discipline. It is a critical feature for integrating n8n into an existing enterprise technology stack and gaining the confidence of IT and DevOps leadership.
+
+**Core Concept:** The feature works by linking an n8n instance to a specific branch of a Git repository (e.g., GitHub, GitLab) that allows SSH access. This creates distinct "environments." A common pattern is to have a development instance linked to a dev branch, a staging instance linked to a staging branch, and a production instance linked to the main branch.
+
+**Setup Process:**
+1. Create a Git repository and the desired branches (e.g., dev, main).
+2. In the n8n instance settings (Settings > Environments), provide the SSH URL of the repository.
+3. n8n generates an SSH key (ED25519 or RSA).
+4. This key must be added as a "deploy key" with write access to the Git repository.
+5. Once connected, the n8n instance is configured to use a specific branch. The instance can also be marked as "Protected" to prevent direct edits in the UI, enforcing a Git-first workflow, which is a best practice for production environments.
+
+**Git Operations in n8n:** The interaction with Git is streamlined into three key processes within the n8n UI:
+
+**Commit & Push:** When a user saves changes to workflows, credentials, or tags, they can "push" these changes to the connected Git branch. This bundles the changes into a single commit. n8n stores workflows as JSON files, and for credentials and variables, it commits only the non-sensitive stubs, not the secret values themselves.
+
+**Pull:** This action fetches the latest version of all workflows, tags, and variable stubs from the remote Git branch and applies them to the n8n instance. It is a destructive operation that overwrites any local, un-pushed changes. Therefore, it is crucial to push local changes before pulling.
+
+**Merge Conflicts:** n8n has a basic mechanism for handling merge conflicts, but complex merges should be handled outside n8n directly in Git.
+
+It is important to recognize that n8n's source control is not a full-featured Git client. It does not support complex operations like interactive rebasing or a pull-request-style review and merge process directly within the UI. Code reviews and merge approvals must be conducted in the Git provider (e.g., GitHub) as part of a standard DevOps process.
+
+## **Part II: Workflow Construction and Logic**
+
+This part transitions from the platform's architecture to the practical application of building powerful and reliable automations. It focuses on the techniques and logical constructs that form the backbone of any n8n workflow, covering flow control, data processing, iteration, and error handling.
+
+### **Section 3: Designing and Managing Workflows**
+
+This section details the lifecycle of a workflow from creation to production deployment, exploring the core nodes and concepts used to manage the flow of execution.
+
+#### **3.1 Workflow Lifecycle: Creation, Activation, and Scheduling**
+
+Every n8n workflow progresses through a distinct lifecycle, from initial design to active, automated execution.
+
+**Creation:** A new workflow can be initiated in two ways. A user can Start from Scratch to begin with a blank canvas, or they can select a pre-built Workflow template to accelerate development for a common use case. Templates provide a working example that can be customized, offering a valuable learning tool and starting point.
+
+**Activation:** By default, all new workflows are Inactive. In this state, a workflow can only be executed manually by pressing the Test Workflow button in the editor. This is the intended mode for development and testing. To enable a workflow to run automatically in response to a trigger, it must be switched to Active using the toggle in the top bar. This is a critical step for deploying a workflow to production. Once active, the workflow will execute whenever its trigger conditions are met.
+
+**Scheduling:** One of the most common methods for triggering workflows automatically is through scheduling. This is accomplished using the Schedule Trigger node as the first node in the workflow. This node allows for highly flexible scheduling configurations, including:
+- Fixed intervals (e.g., every 15 minutes, every hour).
+- Specific times of the day, on specific days of the week or month.
+- Custom scheduling using standard cron expressions for maximum flexibility.
+
+#### **3.2 Advanced Flow Control: Logic, Branching, and Merging**
+
+n8n provides a set of powerful core nodes for implementing complex business logic visually. This combination of nodes allows developers to construct intricate conditional pathways that would otherwise require deeply nested if/else or switch statements in traditional code, significantly improving the readability and maintainability of the automation logic.
+
+##### **3.2.1 Conditional Logic: The If Node**
+
+The If node is the fundamental tool for binary branching. It evaluates incoming data items against a set of conditions and routes them down one of two outputs: true (if conditions are met) or false (if conditions are not met).
+
+**Configuration:** Conditions are built by selecting a data type (e.g., String, Number, Boolean), a comparison operator (e.g., contains, is greater than, is true), and providing values for comparison. Multiple conditions can be added and combined using logical operators:
+- **AND:** The item is passed to the true output only if it satisfies *all* specified conditions.
+- **OR:** The item is passed to the true output if it satisfies *any* of the specified conditions.
+
+A mix of AND and OR logic within a single If node is not supported; complex logic may require multiple sequential If nodes.
+
+##### **3.2.2 Multi-Path Routing: The Switch Node**
+
+When a workflow requires routing data down more than two potential paths based on the value of a single input field, the Switch node is the appropriate tool. It functions like a switch statement in programming.
+
+**Configuration:** The user specifies an input field to evaluate (e.g., status). Then, they define multiple output routes, each corresponding to a specific value of that field (e.g., Route 0 for status = 'new', Route 1 for status = 'in-progress', etc.). The Switch node can have an unlimited number of output routes, providing a clean and scalable way to handle multi-path logic.
+
+##### **3.2.3 Data Stream Unification: The Merge Node**
+
+The Merge node is used to combine data items from multiple, separate execution branches back into a single, unified stream. This is essential after an If or Switch node has split the workflow, and the subsequent processing steps are common to all branches.
+
+**Configuration:** The Merge node offers several modes to control how it combines the incoming data, such as waiting for all branches to provide an item before proceeding, or passing items through as soon as they arrive from any branch. Correctly configuring the Merge node is crucial for ensuring data is processed as intended after branching.
+
+#### **3.3 Iteration and Concurrency: Looping, Batching, and Sub-workflows**
+
+n8n provides several mechanisms for processing datasets containing multiple items, from simple iteration to more advanced techniques for performance and modularity.
+
+**Looping (Default Behavior):** By default, most n8n nodes execute once for each item they receive as input. If a node receives an array of 10 items, it will run 10 times, with each run processing one item. This is the fundamental looping mechanism in n8n.
+
+**Batching:** For very large datasets, processing item-by-item can be inefficient and may lead to hitting API rate limits of downstream services. The Loop Over Items (Split in Batches) node addresses this by grouping incoming items into smaller, manageable chunks (batches). The rest of the workflow then processes these batches, allowing for bulk operations (e.g., a single API call to insert 100 records) instead of many individual ones. This is a critical technique for performance optimization and reliable interaction with external systems.
+
+**Sub-workflows:** Sub-workflows are a powerful feature for creating reusable, modular, and testable workflow components. They allow developers to encapsulate a specific piece of logic into its own workflow, which can then be called by other "parent" workflows. This is analogous to creating a function or microservice in traditional programming.
+
+**Implementation:** This is achieved using two complementary nodes:
+- **Execute Sub-workflow Trigger:** This node is the entry point for a sub-workflow. It defines the expected input data that the sub-workflow will receive from a parent.
+- **Execute Sub-workflow:** This node is used in the parent workflow to call the sub-workflow, passing data to it and receiving the processed data back upon its completion.
+
+This modular approach is essential for managing complexity, promoting code reuse, and enabling independent testing of different parts of a larger automation process.
+
+#### **3.4 Robustness and Reliability: Error Handling Strategies**
+
+Building resilient, production-grade automations requires a robust strategy for handling unexpected errors. n8n's architecture provides a sophisticated, dual-layer error handling system that mirrors modern software development practices, allowing for both localized, specific error management and global, catch-all failure handling. This system gives architects the tools to design workflows that are not just functional but also resilient, observable, and, in some cases, self-recovering—a mandatory requirement for any enterprise-grade system.
+
+**Node-Level Error Handling:** This first layer of defense allows for handling potential failures at the source, within the settings of an individual node. This is analogous to a try-catch block around a specific function call in code, designed to manage expected or transient errors without halting the entire process.
+
+**On Error Setting:** Found in the Settings tab of most nodes, this option defines the node's behavior upon failure.
+- Stop Workflow: The default behavior; the entire workflow execution halts immediately.
+- Continue: The workflow proceeds to the next node, ignoring the error. The data from the last successfully executed node is passed along.
+- Continue (using error output): The workflow proceeds, but instead of passing regular data, it passes an object containing details about the error to the next node. This allows for conditional logic based on the error itself.
+
+**Retry On Fail Setting:** This option instructs the node to automatically re-run itself a specified number of times if it fails. This is particularly useful for handling intermittent issues like temporary network timeouts or API unavailability.
+
+**Optional Error Output:** As of version 1.15.1, most nodes have an optional error output connector (a red dot). This provides a dedicated branch for handling errors from that specific node, offering a visual way to implement the "Continue (using error output)" logic.
+
+**Workflow-Level Error Handling:** This second layer acts as a global, unhandled exception handler for the entire workflow. It catches any failure not explicitly handled at the node level, ensuring that no error goes unnoticed.
+
+**Error Trigger Node:** A dedicated workflow can be created to handle failures. This "Error Workflow" must start with the Error Trigger node. This trigger activates only when another workflow, which has been configured to use it, fails during an automatic execution.
+
+**Configuration:** In any given workflow's settings (Options > Settings), a user can select their designated Error Workflow. When the main workflow fails, n8n automatically triggers the Error Workflow, passing it a JSON object containing rich contextual data about the failure, including the name of the workflow that failed, the node that caused the error, the error message, and a stack trace. This allows for centralized and standardized error logging, notifications (e.g., sending a detailed alert to Slack or email), or even attempts at automated remediation.
+
+**Stop And Error Node:** This node allows a developer to programmatically force a workflow to fail based on custom business logic. It is the equivalent of throwing a custom exception in code (e.g., throw new CustomError('Input data is invalid')). When this node is executed, it immediately halts the workflow and triggers the designated Error Workflow, allowing developers to signal a failure state based on business rules, not just technical faults.
+
+### **Section 4: Data Handling and Transformation**
+
+Data is the lifeblood of any automation. This section provides a fundamental explanation of how data is structured, passed between nodes, and manipulated within an n8n workflow. A mastery of these concepts is essential for building anything beyond the most basic automations.
+
+#### **4.1 The n8n Data Structure: Items, JSON, and Binary Data**
+
+Data in n8n flows between nodes in a structured format. Understanding this structure is crucial for correctly accessing and manipulating data in your workflows.
+
+**Items:** The fundamental unit of data in n8n is an "item." A workflow can process a single item or an array of multiple items. Each node in a workflow typically receives an array of items from the preceding node and passes an array of items to the next.
+
+**JSON (JavaScript Object Notation):** Each item consists of a JSON object. This is the standard data format used throughout n8n for structured data. The JSON object contains key-value pairs representing the data for that item. When you view the output of a node, you are looking at an array of these JSON objects.
+
+**Binary Data:** In addition to JSON data, n8n can handle binary data, such as images, PDFs, or other files. Binary data is not stored directly within the JSON object. Instead, the JSON item will contain a reference to the binary data, which is stored separately. This binary data can then be accessed and used by subsequent nodes, for example, to upload a file to a service or attach it to an email.
+
+#### **4.2 Mastering Expressions: Syntax, Variables, and Functions**
+
+Expressions are the primary mechanism for dynamically accessing, manipulating, and transforming data within n8n. They can be used in almost any node parameter to insert values from previous nodes, perform calculations, or format data.
+
+**Syntax:** All n8n expressions are enclosed in double curly braces: {{ }}. Inside these braces, users can write JavaScript, reference variables, and use a rich set of built-in functions. An expression editor is available for most parameters, providing syntax highlighting and a variable selector to help browse available data and construct expressions.
+
+**Referencing Data:** Accessing data from previous steps is a core function of expressions. n8n provides a simplified syntax for this:
+- **Input of the Current Node ($json):** The $json variable refers to the JSON object of the single item currently being processed by the node. For example, to access a city property from the input, the expression would be {{$json.city}}.
+- **Output of Other Nodes ($('Node Name')):** To access data from any previous node in the workflow, you can use the $('Node Name') syntax. For example, {{$('Start').item.json.myValue}} would retrieve the myValue field from the JSON of the item produced by the node named "Start".
+
+**Special Variables:** n8n provides convenient global variables, such as $now and $today, which return the current date and time as Luxon objects, ready for manipulation.
+
+**Date/Time Manipulation with Luxon:** n8n natively integrates the Luxon library for all date and time operations. This allows for powerful and reliable parsing, formatting, and calculation of dates directly within expressions. For example, {{ $today.minus({ days: 7 }) }} would return the date from seven days ago.
+
+**Advanced Querying with JMESPath:** For complex data extraction from nested JSON objects and arrays, n8n supports JMESPath syntax. This provides a declarative way to specify exactly which data you want to extract.
+
+**Data Transformation Functions:** n8n extends standard JavaScript with a library of custom data transformation functions to simplify common tasks. These are categorized by data type and provide a more concise alternative to writing complex JavaScript logic.
+
+### **Section 5: Essential Node Categories and Use Cases**
+
+This section provides a comprehensive overview of the most important node categories in n8n, explaining their purposes and providing practical guidance on when and how to use them effectively.
+
+#### **5.1 Core Nodes: The Foundation of Workflow Logic**
+
+Core nodes are the building blocks of workflow logic in n8n. They handle data manipulation, flow control, and fundamental operations that are essential to most automations.
+
+**Data Manipulation Nodes:**
+- **Edit Fields (Set):** Adds, modifies, or removes fields from data items. Essential for data preparation and transformation.
+- **Code:** Allows custom JavaScript execution for complex data transformations that cannot be achieved with built-in nodes.
+- **Filter:** Removes items from the data stream based on specified conditions, useful for data cleaning and conditional processing.
+- **Aggregate:** Performs mathematical operations (sum, average, count) on datasets, crucial for analytics and reporting workflows.
+
+**File Processing Nodes:**
+- **Extract From File:** Extracts data from various file formats (CSV, JSON, XML, etc.), enabling file-based data ingestion.
+- **Convert to File:** Converts data into file formats for export or storage purposes.
+- **Compression:** Handles file compression and decompression operations.
+
+**Flow Control Nodes:**
+- **If:** Provides conditional branching based on data evaluation.
+- **Switch:** Routes data to different paths based on field values.
+- **Merge:** Combines data streams from multiple branches.
+- **Loop Over Items (Split in Batches):** Processes large datasets in manageable chunks.
+
+#### **5.2 Application Nodes: Connecting to External Services**
+
+Application nodes are pre-built integrations with popular services and platforms. They handle authentication, API calls, and data formatting automatically.
+
+**Popular Application Integrations:**
+- **Google Sheets:** Read, write, and manipulate spreadsheet data with full CRUD operations.
+- **Slack:** Send messages, create channels, and manage team communications.
+- **Notion:** Interact with databases, pages, and blocks in Notion workspaces.
+- **Airtable:** Manage records in Airtable bases with full API functionality.
+- **HTTP Request:** Make custom API calls to any REST endpoint with full control over headers, authentication, and data formatting.
+
+**Database Integrations:**
+- **PostgreSQL, MySQL, MongoDB:** Direct database operations for data storage and retrieval.
+- **Supabase, Firebase:** Modern backend-as-a-service integrations.
+
+### **Section 6: AI and Advanced Automation Features**
+
+n8n has evolved into a powerful platform for building AI-powered automations and advanced workflow logic. This section covers the AI capabilities and sophisticated features that distinguish n8n as a modern automation platform.
+
+#### **6.1 AI Agent and Chain Building**
+
+n8n provides a dedicated set of "cluster nodes" for building AI-powered logic, positioning itself as a comprehensive framework for AI automation.
+
+**AI Agent Node:** This is a root node that orchestrates a conversational agent. It can be configured as:
+- **Conversational Agent:** For simple back-and-forth dialogue interactions.
+- **Tools Agent:** Can use other n8n nodes as "tools" to perform actions, like fetching data from an API or searching a database.
+
+**Question and Answer Chain Node:** A simpler root node designed for question-answering over a set of documents, ideal for knowledge base applications.
+
+**Sub-Nodes:** These nodes connect to the root agent or chain to provide specific functionalities:
+- **Chat Models:** OpenAI Chat Model, Anthropic Chat Model, Ollama Chat Model for different AI providers.
+- **Memory Systems:** Simple Memory, Postgres Chat Memory for conversation context retention.
+- **Vector Stores:** PGVector, Qdrant, Supabase, Simple Vector Store for embedding storage.
+
+#### **6.2 Retrieval-Augmented Generation (RAG)**
+
+n8n has first-class support for building RAG systems, a technique that enhances LLM responses by providing them with up-to-date, external information.
+
+**RAG Components:**
+- **Data Loaders and Splitters:** Nodes to ingest data from sources and split it into manageable chunks (e.g., Recursive Character Text Splitter).
+- **Vector Stores:** Store numerical representations (embeddings) of data for semantic search.
+- **Retrievers:** Vector Store Retriever fetches the most relevant chunks of data from the vector store based on a user's query, which are then passed to the LLM as context to "ground" its response.
+
+#### **6.3 The Model Context Protocol (MCP)**
+
+Introduced in version 1.88.0, MCP is an n8n-developed protocol designed to standardize how LLMs interact with tools and data. It consists of:
+- **MCP Server Trigger:** Exposes n8n tools as an MCP Server endpoint.
+- **MCP Client Tool:** Enables interaction with MCP-compatible services.
+
+This development shows n8n's ambition to innovate on the underlying mechanics of AI agent architecture, aiming to create more reliable and interoperable systems.
+
+#### **6.4 AI Workflow Evaluation Framework**
+
+Acknowledging that AI systems can be non-deterministic, n8n has introduced a dedicated evaluation framework to test and score the performance and reliability of AI automations.
+
+**Evaluation Components:**
+- **Evaluation Trigger Node:** Reads a dataset of test cases (e.g., from a Google Sheet), with each row representing a prompt and an expected outcome.
+- **Evaluation Node:** Used within the workflow to log scoring metrics (e.g., comparing the AI's actual output to the expected output) and can conditionally execute logic based on whether the run is an evaluation.
+- **Evaluations Tab:** Results are aggregated in a dedicated "Evaluations" tab, allowing developers to track the performance of their AI workflows over time and compare different versions of a prompt or model.
+
+#### **6.5 AI-Enhanced Development Features**
+
+AI capabilities are also being embedded into standard nodes to augment the developer experience:
+- **AI Transform Node:** A cloud-only node that generates a code snippet based on a natural language prompt, simplifying data transformation tasks.
+- **"Ask AI" Features:** The Code node and HTTP Request node include an "Ask AI" feature that helps users generate JavaScript code or cURL requests from a plain English description, lowering the barrier to entry for complex configurations.
+
+### **Section 7: Enterprise and Production Features**
+
+This section covers the advanced features that make n8n suitable for enterprise deployment and production-scale automation.
+
+#### **7.1 Security and Governance**
+
+**Single Sign-On (SSO):** n8n supports integration with corporate identity providers via standard protocols like SAML, OIDC, and LDAP, allowing users to log in with existing company credentials.
+
+**Role-Based Access Control (RBAC):** Implements a granular permissions model with instance-level roles (Owner, Admin) and a Projects feature for creating collections of workflows and credentials with project-specific user roles.
+
+**External Secrets Management:** n8n Enterprise supports external secrets management, allowing n8n to fetch credentials at runtime from dedicated vaults like HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault.
+
+#### **7.2 Observability and Monitoring**
+
+**Log Streaming:** n8n can be configured to stream all workflow execution events and audit logs to external observability platforms like Datadog or Sentry.
+
+**Audit Logs:** The platform maintains detailed audit logs that track user activities, such as workflow creation, credential updates, and user logins.
+
+**Execution Monitoring:** Comprehensive execution tracking with detailed logs, performance metrics, and failure analysis.
+
+#### **7.3 Scaling and Deployment**
+
+**Multi-Worker Architecture:** For high-volume workloads, n8n supports horizontal scaling through a multi-worker architecture using Redis-based job queues.
+
+**Queue Mode:** When EXECUTIONS_MODE is set to queue, the main n8n process handles UI, API, and webhook triggers while worker instances execute workflows in parallel.
+
+**Environment Variables:** Extensive configuration options through environment variables for database connections, security settings, and performance tuning.
 
 ## n8n BMAD METHOD PRINCIPLES
 

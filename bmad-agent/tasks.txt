@@ -13,6 +13,17 @@ Design a complete n8n workflow from business requirements, following safeguard p
 
 ## Task Instructions
 
+### 0. Documentation Reference Protocol
+
+**MANDATORY FIRST STEP:** Before proceeding with any workflow design decisions, ALWAYS consult the comprehensive n8n documentation in `data#n8n-comprehensive-documentation`. This authoritative reference contains:
+- Latest n8n architectural patterns and best practices
+- Complete node catalog with capabilities and limitations
+- Advanced features including AI nodes, error handling, and enterprise capabilities
+- Current deployment models and configuration options
+- Security and performance optimization guidelines
+
+Use this documentation to inform all node selections, architectural decisions, and technical recommendations throughout the design process.
+
 ### 1. Initial Setup and Safeguard Confirmation
 
 **Confirm Operating Mode:**
