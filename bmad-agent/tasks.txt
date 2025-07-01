@@ -22,6 +22,11 @@ Design a complete n8n workflow from business requirements, following safeguard p
 - Current deployment models and configuration options
 - Security and performance optimization guidelines
 
+**MANDATORY OPERATIONAL RULES:** MUST follow all default operational rules in `data#n8n-bmad-default-operational-rules`, especially:
+- Never assume nodes are disabled when analyzing execution issues
+- Focus on logical, technical, and data-related causes for execution problems
+- Follow proper workflow execution troubleshooting protocols
+
 Use this documentation to inform all node selections, architectural decisions, and technical recommendations throughout the design process.
 
 ### 1. Initial Setup and Safeguard Confirmation
@@ -594,13 +599,27 @@ docker logs nginx --tail 50
 
 ### 4. Workflow Execution Issues
 
+**CRITICAL OPERATIONAL RULE - Node Execution Analysis:**
+⚠️ **MANDATORY PROTOCOL:** When analyzing workflow execution issues where nodes appear to be skipped:
+- ❌ **NEVER assume or suggest that nodes are disabled/turned off** as the root cause
+- ❌ **DO NOT suggest checking if nodes are accidentally disabled** as a troubleshooting step
+- ✅ **ALWAYS focus on logical, technical, and data-related causes** for execution skipping
+
 **Execution Diagnostics:**
-- Review workflow execution logs
+- Review workflow execution logs for conditional logic failures
 - Check for timeout or memory issues
 - Validate node configurations and credentials
 - Test individual nodes in isolation
+- Analyze data flow and dependency chains
+- Examine conditional expressions and branching logic
 
-**Common Workflow Problems:**
+**Common Workflow Problems (Focus Areas):**
+- Conditional logic preventing node execution (IF/Switch nodes)
+- Input validation failures and data structure mismatches
+- Dependency chain issues and broken data flow
+- Runtime errors causing silent failures
+- Flow control mechanisms (loops, branches, merges)
+- Resource availability constraints
 - Node version compatibility issues
 - Credential configuration problems
 - Rate limiting and API quota issues

@@ -17,6 +17,7 @@
   - [POST MVP FEATURES](#post-mvp-features)
   - [n8n NODE AND TRIGGER REFERENCE](#n8n-node-and-trigger-reference)
   - [n8n COMPREHENSIVE DOCUMENTATION](#n8n-comprehensive-documentation)
+  - [n8n BMAD DEFAULT OPERATIONAL RULES](#n8n-bmad-default-operational-rules)
   - [n8n BMAD METHOD PRINCIPLES](#n8n-bmad-method-principles)
 
 ## PROJECT OVERVIEW
@@ -725,6 +726,56 @@ This section covers the advanced features that make n8n suitable for enterprise 
 **Queue Mode:** When EXECUTIONS_MODE is set to queue, the main n8n process handles UI, API, and webhook triggers while worker instances execute workflows in parallel.
 
 **Environment Variables:** Extensive configuration options through environment variables for database connections, security settings, and performance tuning.
+
+## n8n BMAD DEFAULT OPERATIONAL RULES
+
+These are mandatory operational rules that all BMAD agents must follow when providing n8n workflow guidance and troubleshooting assistance:
+
+### WORKFLOW EXECUTION TROUBLESHOOTING RULES
+
+#### Rule 1: Node Execution Analysis Protocol
+
+**When analyzing workflow execution issues where nodes appear to be skipped:**
+
+**❌ PROHIBITED ASSUMPTIONS:**
+- Do NOT assume or suggest that the node has been disabled/turned off as the root cause
+- Do NOT provide "node is disabled" as an explanation for skipped nodes during workflow execution
+- Do NOT suggest checking if a node is accidentally disabled as a troubleshooting step
+
+**✅ REQUIRED INVESTIGATION APPROACH:**
+Always assume nodes are enabled by default and focus on logical, technical, or data-related reasons for execution skipping:
+
+1. **Conditional Logic Analysis**
+   - Examine IF nodes and their conditions
+   - Check Switch node routing logic
+   - Verify conditional expressions and data evaluation
+
+2. **Input Validation Failures**
+   - Analyze data structure mismatches
+   - Check for missing required fields
+   - Verify data type compatibility
+
+3. **Dependency Chain Issues**
+   - Trace data flow from previous nodes
+   - Identify broken connections or missing data
+   - Check for upstream node failures
+
+4. **Runtime Errors with Silent Failures**
+   - Look for authentication failures
+   - Check API rate limiting or timeouts
+   - Examine credential or permission issues
+
+5. **Flow Control Mechanisms**
+   - Analyze loop conditions and iterations
+   - Check branch execution paths
+   - Verify merge node configurations
+
+6. **Resource Availability Constraints**
+   - Check memory or processing limitations
+   - Examine timeout configurations
+   - Verify external service availability
+
+**RATIONALE:** In real-world n8n scenarios, nodes being accidentally disabled is extremely rare. Most execution skipping is caused by logical, technical, or data-related issues that require proper analysis rather than configuration assumptions.
 
 ## n8n BMAD METHOD PRINCIPLES
 
